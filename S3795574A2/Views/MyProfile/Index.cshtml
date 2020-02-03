@@ -1,0 +1,53 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "My Profile";
+}
+<h1 class="display-4">This is My Profile Page.</h1>
+
+<h3>Your Info:</h3>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div class="form-group">
+                <label class="control-label">Name:</label>
+                <input asp-for="Name" id="Name" value="@Model.Name" class="form-control" />
+                @Html.ValidationMessage("Name", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Address:</label>
+                <input asp-for="@Model.Address" id="Address" value="@Model.Address" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">City:</label>
+                <input asp-for="@Model.City" id="City" value="@Model.City" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">State:</label>
+                @Html.DropDownListFor(m => m.States,new SelectList(Enum.GetValues(typeof(States))),"Select State")
+                <!--<input asp-for="@Model.States" class="form-control" value="@Model.States" />-->
+            </div>
+            <div class="form-group">
+                <label class="control-label">Post Code:</label>
+                <input asp-for="@Model.PostCode" class="form-control" value="@Model.PostCode" />
+                @Html.ValidationMessage(nameof(Model.PostCode), new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phone:</label>
+                <input asp-for="@Model.Phone" class="form-control" value="@Model.Phone" />
+                @Html.ValidationMessage("Phone", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">TFN:</label>
+                <input asp-for="@Model.TFN" class="form-control" value="@Model.TFN" />
+                <span asp-validation-for="TFN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Password" asp-route-id="@Model.CustomerID" type="submit" value="Change Passowrd" class="btn btn-primary" >Change Password</a>
+                <input type="submit" value="Update Info" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home Page</a>
+</div>

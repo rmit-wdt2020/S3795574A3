@@ -1,0 +1,48 @@
+﻿@model BillPay
+@{
+    ViewData["Title"] = "Bill Pay";
+}
+<h1 class="display-4">Edit Bill Pay - Bill Pay ID: @Model.BillPayID</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label class="control-label">From Account:</label>
+                <input asp-for="@Model.AccountNumber" class="form-control" value="@Model.AccountNumber" />
+                @Html.ValidationMessage("Account", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">To Payee ID:</label>
+                <input asp-for="@Model.PayeeID" id="Payee" class="form-control" value="@Model.PayeeID" />
+                @Html.ValidationMessage("PayeeID", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Amount:</label>
+                <input asp-for="@Model.Amount" id="Amount" class="form-control" value="@Model.Amount.ToString("0.00")" />
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Scheduled Date:</label>
+                @{
+                    var ScheduleDate = DateTime.SpecifyKind(Model.ScheduleDate, DateTimeKind.Utc);
+                }
+            <label class="control-label">@Model.ScheduleDate.ToLocalTime()</label>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Period:</label>
+                <label class="control-label">@Model.Period</label>
+            </div>
+            <div class="form-group">
+                <input asp-action="BillPayList" asp-route-id="@Model.AccountNumber" type="submit" value="Back" class="btn btn-primary" />
+                <input type="hidden" asp-for="@Model.BillPayID" value="@Model.BillPayID" />
+                <input type="hidden" asp-for="@Model.Period" value="@Model.Period" />
+                <input type="hidden" asp-for="@Model.ScheduleDate" value="@Model.ScheduleDate" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home Page</a>
+</div>

@@ -1,0 +1,56 @@
+﻿@model TransactionViewModel
+
+<h1 class="display-4" align="center">Transaction Details</h1>
+<!--Display destation account number input basing on dropdownlist-->
+@section scripts {
+    <script>
+        document.on("load", destAccNum());
+        function destAccNum() {
+            if ($('#ddl :selected').text() === "Transfer") {
+                $("#destAccountLabel").show();
+                $("#destAccount").show();
+
+            } else {
+                $("#destAccountLabel").hide();
+                $("#destAccount").hide();
+            }
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Transaction">
+            <div class="form-group">
+                <label class="control-label">Transaction Type:</label>
+                @Html.DropDownListFor(m => m.SelecteID, Model.TransactionTypes, new { @id = "ddl", @onchange = "destAccNum()" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">From Account:</label>
+                <input asp-for="@Model.AccountNumber" class="form-control" value="@Model.AccountNumber" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label id ="destAccountLabel" class="control-label">To Account:</label>
+                <input asp-for="@Model.DestinationAccountNumber" id="destAccount" class="form-control" />
+                @Html.ValidationMessage("DestinationAccountNumber", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Amount:</label>
+                <input asp-for="@Model.Amount" class="form-control" value="@ViewBag.Amount?.ToString("0.00")" />
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+                @Html.ValidationMessage("insufficientBalance", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="comment" class="control-label">Comment:</label>
+                <input asp-for="@Model.Comment" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-action="Index" type="submit" value="Cancel Transaction" class="btn btn-primary" />
+                <input type="hidden" asp-for="@Model.Balance" value="@Model.Balance" />
+                <input type="hidden" asp-for="@Model.AccountType" value="@Model.AccountType" />
+                <input type="submit" value="Execute Transaction" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

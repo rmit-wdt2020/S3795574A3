@@ -1,0 +1,47 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+@model IPagedList<Transaction>
+@{
+    ViewData["Title"] = "Transaction history";
+    var account = (Account)ViewBag.Account;
+}
+
+<div>
+    <h1>Transaction History of account: @account.AccountNumber, @account.AccountType.ToString()</h1>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x[0].TransactionID)</th>
+            <th>@Html.DisplayNameFor(x => x[0].TransactionType)</th>
+            <th>@Html.DisplayNameFor(x => x[0].AccountNumber)</th>
+            <th>@Html.DisplayNameFor(x => x[0].DestinationAccountNumber)</th>
+            <th>@Html.DisplayNameFor(x => x[0].Amount)</th>
+            <th>@Html.DisplayNameFor(x => x[0].Comment)</th>
+            <th>@Html.DisplayNameFor(x => x[0].ModifyDate)</th>
+        </tr>
+        @foreach (var transaction in Model)
+        {
+            var transactionTime = DateTime.SpecifyKind(transaction.ModifyDate, DateTimeKind.Utc);
+        <tr>
+            <th>@Html.DisplayFor(x => transaction.TransactionID)</th>
+            <th>@Html.DisplayFor(x => transaction.TransactionType)</th>
+            <th>@Html.DisplayFor(x => transaction.AccountNumber)</th>
+            <th>@Html.DisplayFor(x => transaction.DestinationAccountNumber)</th>
+            <th>@Html.DisplayFor(x => transaction.Amount)</th>
+            <th>@Html.DisplayFor(x => transaction.Comment)</th>
+            <th>@transactionTime.ToLocalTime()</th>
+        </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Statements", new { page }),
+        new PagedListRenderOptions
+            {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+</div>
+
+<div>
+    <a asp-action="Index">Back to Statement Page</a>
+</div>

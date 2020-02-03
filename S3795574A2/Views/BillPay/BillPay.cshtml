@@ -1,0 +1,42 @@
+﻿@model BillPayViewModel
+@{
+    ViewData["Title"] = "Bill Pay";
+}
+    <h1 class="display-4">Schedule Bill Pay</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BillPay">
+            <div class="form-group">
+                <label class="control-label">From Account:</label>
+                <input asp-for="@Model.Account" class="form-control" value="@Model.Account" />
+                @Html.ValidationMessage("Account", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">To Payee ID:</label>
+                <input asp-for="@Model.Payee" id="Payee" class="form-control" />
+                @Html.ValidationMessage("Payee", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Amount:</label>
+                <input asp-for="@Model.Amount" id="Amount" class="form-control" value="@ViewBag.Amount?.ToString("0.00")"/>
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Scheduled Date:</label>
+                <input asp-for="@Model.ScheduledDate" id="ScheduledDate" class="form-control" />
+                @Html.ValidationMessage("ScheduledDate", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Select a frequency:</label>
+                @Html.DropDownListFor(m => m.Period, new SelectList(Enum.GetValues(typeof(Period))))
+            </div>          
+            <div class="form-group">
+                <a input asp-action="Index" type="submit" value="Clear" class="btn btn-primary">Back</a>
+                <input type="hidden" asp-for="@Model.Account" value="@Model.Account" />
+                <input type="submit" value="Create Bill Pay" class="btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+</div>
