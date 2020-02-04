@@ -25,9 +25,38 @@ namespace S3795574A2.Controllers
         public async Task<IActionResult> Login(string userID, string password)
         {
             var login = await _context.Logins.FindAsync(userID);
-            if (login == null || !PBKDF2.Verify(login.PasswordHash, password))
+            //User does not exist
+            if (login == null)
             {
                 ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
+                return View(new Login { UserID = userID });
+            }
+            //check if the user is currently locked
+            if (login.LockedToDate > DateTime.UtcNow)
+            {
+                ModelState.AddModelError("UserLocked", "Too many attempts, user is locked for 10 mins.");
+                return View(new Login { UserID = userID });
+            }
+
+            if (!PBKDF2.Verify(login.PasswordHash, password))
+            {
+                //set the attempt to 0 for new user. Because this field is nullable.
+                if (String.IsNullOrEmpty(login.Attempt.ToString()))
+                    login.Attempt = 0;
+                //reset attempt if the last modify date is more than 15 mins earlier than now
+                if (login.ModifyDate.AddMinutes(15) < DateTime.UtcNow)
+                    login.Attempt = 0;
+                login.Attempt += 1;
+                login.ModifyDate = DateTime.UtcNow;
+                ModelState.AddModelError("Attempt", "Login Failed. Attpempt left: " + (3 - login.Attempt));
+                if (login.Attempt >= 3 && login.ModifyDate.AddMinutes(15) > DateTime.UtcNow)
+                {                   
+                    login.Attempt = 0;
+                    //login.IsLocked = true;
+                    login.LockedToDate = DateTime.UtcNow.AddMinutes(10);
+                }
+                
+                await _context.SaveChangesAsync();
                 return View(new Login { UserID = userID });
             }
 

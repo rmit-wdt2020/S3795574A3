@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using S3795574A2.Data;
 using S3795574A2.Models;
 using SimpleHashing;
@@ -15,8 +16,17 @@ namespace S3795574A2.Controllers
         private readonly NwbaContext _context;
         private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
         public MyProfileController(NwbaContext context) => _context = context;
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
+                filterContext.Result = new RedirectResult("/Nwba/SecureLogin");
+
+        }
         public async Task<IActionResult> Index()
         {
+            //Redirect to login page
+            //if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
+            //    return Redirect("/Nwba/SecureLogin");
             var customer = await _context.Customers.FindAsync(CustomerID);
 
             return View(customer);
@@ -53,6 +63,9 @@ namespace S3795574A2.Controllers
         [HttpPost]
         public async Task<IActionResult> Password(string oldPassword,string newPassword,string newPasswordAgain)
         {
+            //Redirect to login page
+            if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
+                return Redirect("/Nwba/SecureLogin");
             var userID = _context.Logins.Where(x => x.CustomerID == CustomerID).Select(x => x.UserID).FirstOrDefault();
             var login = await _context.Logins.FindAsync(userID);
             var customer = await _context.Customers.FindAsync(CustomerID);

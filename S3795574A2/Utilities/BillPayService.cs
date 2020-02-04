@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using S3795574A2.Data;
+using S3795574A2.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,9 +14,10 @@ namespace S3795574A2
     public class BillPayService : IHostedService
     {
         private readonly IServiceScopeFactory scopeFactory;
-
-        public BillPayService(IServiceScopeFactory scopeFactory)
+        private readonly IHttpContextAccessor accessor;
+        public BillPayService(IServiceScopeFactory scopeFactory, IHttpContextAccessor accessor)
         {
+            this.accessor = accessor;
             this.scopeFactory = scopeFactory;
         }
         public Task StartAsync(CancellationToken cancellationToken)
@@ -37,7 +40,8 @@ namespace S3795574A2
 
             while (true)
             {
-
+                //if(accessor.HttpContext.Session.GetInt32(nameof(Customer.CustomerID)) == null)
+                //    accessor.HttpContext.Response.Redirect("https://localhost:44380/Nwba/SecureLogin/LogoutNow");
                 _ = billPayManager.Run();
                 //Run this loop every 5 second
                 DateTime nextStop = DateTime.Now.AddSeconds(5);
