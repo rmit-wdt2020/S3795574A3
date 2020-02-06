@@ -37,6 +37,7 @@ namespace WebAPI
             services.AddTransient<LoginManager>();
             services.AddTransient<AccountManager>();
             services.AddTransient<BillpayManager>();
+            services.AddTransient<TransactionManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace S3795574A2.Controllers
+namespace AdminPortal.Controllers
 {
     [Route("Error/{statusCode}")]
     public class ErrorController : Controller

@@ -27,11 +27,11 @@
                     <td>@Html.DisplayFor(x => bill.Period)</td>
                     <td>@Html.DisplayFor(x => bill.IsLocked)</td>
                     <td>
-                        <a asp-action="BlockBillpay" asp-route-id="@bill.AccountNumber" asp-route-id2 ="@bill.BillPayID" class="btn btn-primary">Block</a>
+                        <a asp-controller="BlockBillpay" asp-action="BlockBillpay" asp-route-id="@bill.AccountNumber" asp-route-id2 ="@bill.BillPayID" class="btn btn-primary">Block</a>
                     </td>
                 </tr>
             }
         </table>
 <div>
-    <a asp-action="Index">Back to Dashboard</a>
+    <a asp-controller="Dashboard" asp-action="Index">Back to Dashboard</a>
 </div>

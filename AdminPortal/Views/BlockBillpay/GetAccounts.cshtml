@@ -32,7 +32,7 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        <a asp-action="BillpayList" asp-route-id="@item.AccountNumber" class="btn btn-primary">Enter</a>
+                        <a asp-controller="BlockBillpay" asp-action="BillpayList" asp-route-id="@item.AccountNumber" class="btn btn-primary">Enter</a>
                     </td>
                 </tr>
                 }
@@ -40,5 +40,5 @@
         </table>
 </div>
 <div>
-    <a asp-action="Index">Back to Dashboard</a>
+    <a asp-controller="Dashboard" asp-action="Index">Back to Dashboard</a>
 </div>

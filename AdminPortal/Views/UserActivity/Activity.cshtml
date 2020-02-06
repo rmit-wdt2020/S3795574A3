@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Account>
+<div class="jumbotron">
+    <h1>Account Activity</h1>
+    <p>Display all the transactions in one account.</p>
+</div>
+<div class="container">
+    <p class="text-info">
+        <Strong>NOTE</Strong>: The transactions can be shown as table or graph.
+    </p>
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Account Number</th>
+                <th>Account Type</th>
+                <th>Balance</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        <a asp-controller="UserActivity" asp-action="TransactionHistory" asp-route-id="@item.AccountNumber"
+                           class="btn btn-primary">Show Records</a>
+                        <a asp-controller="UserActivity" asp-action="Chart" asp-route-id="@item.AccountNumber"
+                           class="btn btn-primary">Show Graph</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-controller="Dashboard" asp-action="Index">Back to Dashboard</a>
+</div>
