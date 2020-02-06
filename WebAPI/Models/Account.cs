@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebAPI.Models;
 
 namespace WebAPI.Models
 {
@@ -35,6 +36,7 @@ namespace WebAPI.Models
         public DateTime ModifyDate { get; set; }
         public virtual IList<Transaction> Transactions { get; set; }
         public virtual IList<BillPay> BillPays { get; set; }
+        public bool IsLocked { get; set; } = false;
         public void Deposit(decimal amount)
         {
             Balance += amount;

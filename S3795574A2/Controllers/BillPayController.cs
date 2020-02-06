@@ -39,6 +39,8 @@ namespace S3795574A2.Controllers
                 ModelState.AddModelError(nameof(billPayViewModel.Account), "The account does not exist.");
             if (billPayViewModel.Amount <= 0)
                 ModelState.AddModelError(nameof(billPayViewModel.Amount), "Amount must be positive.");
+            if (billPayViewModel.Amount > account.Balance)
+                ModelState.AddModelError(nameof(billPayViewModel.Amount), "Insufficient balance");
             if (!Utilities.CheckTwoDecimalPlaces(billPayViewModel.Amount))
                 ModelState.AddModelError(nameof(billPayViewModel.Amount), "Amount cannot have more than 2 decimal places.");
             if (!billPayViewModel.Period.Equals("S") &&

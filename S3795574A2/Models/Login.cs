@@ -21,9 +21,10 @@ namespace S3795574A2.Models
         [Required, StringLength(64)]
         public string PasswordHash { get; set; }
 
-        [Required,StringLength(8)]
+        [Required]
         public DateTime ModifyDate { get; set; }
         public int Attempt { get; set; }
+        public bool IsLocked { get; set; } = false;
         public DateTime LockedToDate { get; set; }
     }
 }

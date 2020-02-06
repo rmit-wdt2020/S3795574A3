@@ -35,6 +35,9 @@ namespace S3795574A2.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2")
                         .HasMaxLength(8);
@@ -60,6 +63,9 @@ namespace S3795574A2.Migrations
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
@@ -135,6 +141,9 @@ namespace S3795574A2.Migrations
 
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LockedToDate")
                         .HasColumnType("datetime2");

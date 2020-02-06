@@ -34,5 +34,11 @@ namespace WebAPI.Controllers
         {
             return _repo.Get(id);
         }
+        // DELETE api/movies/1
+        [HttpDelete("{id}")]
+        public long Delete(int id)
+        {
+            return _repo.Delete(id);
+        }
     }
 }

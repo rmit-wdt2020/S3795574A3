@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BillPay>
+<div class="jumbotron">
+    <h1>Billpay List</h1>
+    <p>Display all the billpays in the account.</p>
+</div>
+<div class="container">
+    <p class="text-warning">
+        <Strong>NOTE</Strong>: This operation will stop paying scheduled billpay.
+    </p>
+</div>
+        <table class="table">
+            <tr>
+                <th>PayeeID</th>
+                <th>Amount</th>
+                <th>Schedule Date</th>
+                <th>Period</th>
+                <th>Block Status</th>
+                <th></th>
+            </tr>
+            @foreach (var bill in Model)
+            {
+                var ScheduleDate = DateTime.SpecifyKind(bill.ScheduleDate, DateTimeKind.Utc);
+                <tr>
+                    <td>@Html.DisplayFor(x => bill.PayeeID)</td>
+                    <td>@Html.DisplayFor(x => bill.Amount)</td>
+                    <td>@bill.ScheduleDate.ToLocalTime()</td>
+                    <td>@Html.DisplayFor(x => bill.Period)</td>
+                    <td>@Html.DisplayFor(x => bill.IsLocked)</td>
+                    <td>
+                        <a asp-action="BlockBillpay" asp-route-id="@bill.AccountNumber" asp-route-id2 ="@bill.BillPayID" class="btn btn-primary">Block</a>
+                    </td>
+                </tr>
+            }
+        </table>
+<div>
+    <a asp-action="Index">Back to Dashboard</a>
+</div>

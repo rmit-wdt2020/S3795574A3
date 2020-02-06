@@ -31,10 +31,16 @@ namespace S3795574A2.Controllers
                 ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
                 return View(new Login { UserID = userID });
             }
-            //check if the user is currently locked
+            //check if the user is locked by admin
+            if (login.IsLocked)
+            {
+                ModelState.AddModelError("LockedByAdmin", "You were locked by admin. Contact us for more information.");
+                return View(new Login { UserID = userID });
+            }
+            //check if the user is locked because too many attempts
             if (login.LockedToDate > DateTime.UtcNow)
             {
-                ModelState.AddModelError("UserLocked", "Too many attempts, user is locked for 10 mins.");
+                ModelState.AddModelError("UserLocked", "Too many attempts, user is locked for 1 mins.");
                 return View(new Login { UserID = userID });
             }
 
@@ -53,7 +59,7 @@ namespace S3795574A2.Controllers
                 {                   
                     login.Attempt = 0;
                     //login.IsLocked = true;
-                    login.LockedToDate = DateTime.UtcNow.AddMinutes(10);
+                    login.LockedToDate = DateTime.UtcNow.AddMinutes(1);
                 }
                 
                 await _context.SaveChangesAsync();

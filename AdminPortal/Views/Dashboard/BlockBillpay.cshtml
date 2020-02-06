@@ -1,0 +1,49 @@
+﻿@model BillPay
+<div class="jumbotron">
+    <h1>Block Billpay</h1>
+    <p>Display all the billpays in the account.</p>
+</div>
+<div class="container">
+    <p class="text-danger">
+        <Strong>NOTE</Strong>: Are you sure you want to change the block status?
+    </p>
+</div>
+<div class="container">
+    <form asp-action="BlockBillpay">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Payee ID</th>
+                    <th>Amount</th>
+                    <th>Scheduled Date</th>
+                    <th>Period</th>
+                    <th>Block Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{var ScheduleDate = DateTime.SpecifyKind(Model.ScheduleDate, DateTimeKind.Utc); }
+                <tr>
+                    <td>@Html.DisplayFor(x => Model.AccountNumber)</td>
+                    <td>@Html.DisplayFor(x => Model.PayeeID)</td>
+                    <td>@Html.DisplayFor(x => Model.Amount)</td>
+                    <td>@Model.ScheduleDate.ToLocalTime()</td>
+                    <td>@Html.DisplayFor(x => Model.Period)</td>
+                    <td>@Html.DisplayFor(x => Model.IsLocked)</td>
+                    <td>
+                        <input type="hidden" asp-for="@Model.BillPayID" value="@Model.BillPayID" />
+                        <input type="hidden" asp-for="@Model.AccountNumber" value="@Model.AccountNumber" />
+                        <input type="hidden" asp-for="@Model.PayeeID" value="@Model.PayeeID" />
+                        <input type="hidden" asp-for="@Model.Amount" value="@Model.Amount" />
+                        <input type="hidden" asp-for="@Model.ScheduleDate" value="@Model.ScheduleDate" />
+                        <input type="hidden" asp-for="@Model.ModifyDate" value="@Model.ModifyDate" />
+                        <input type="submit" value="Yes, I am sure." class="btn btn-danger" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to Dashboard</a>
+</div>

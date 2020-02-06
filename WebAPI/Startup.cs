@@ -34,6 +34,9 @@ namespace WebAPI
                 options.UseSqlServer(Configuration.GetConnectionString(nameof(NwbaContext)));
             });
             services.AddTransient<CustomerManager>();
+            services.AddTransient<LoginManager>();
+            services.AddTransient<AccountManager>();
+            services.AddTransient<BillpayManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

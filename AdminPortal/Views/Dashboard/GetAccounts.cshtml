@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Account>
+<div class="jumbotron">
+    <h1>Block Billpay</h1>
+    <p>Display all the accounts that the customer have.</p>
+</div>
+<div class="container">
+    <p class="text-info">
+        <Strong>NOTE</Strong>: Select an account and click "Enter"
+    </p>
+</div>
+<div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Account Type</th>
+                    <th>Balance</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        <a asp-action="BillpayList" asp-route-id="@item.AccountNumber" class="btn btn-primary">Enter</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+</div>
+<div>
+    <a asp-action="Index">Back to Dashboard</a>
+</div>

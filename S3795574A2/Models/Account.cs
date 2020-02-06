@@ -35,6 +35,7 @@ namespace S3795574A2.Models
         public DateTime ModifyDate { get; set; }
         public virtual IList<Transaction> Transactions { get; set; }
         public virtual IList<BillPay> BillPays { get; set; }
+        public bool IsLocked { get; set; } = false;
         public void Deposit(decimal amount)
         {
             Balance += amount;

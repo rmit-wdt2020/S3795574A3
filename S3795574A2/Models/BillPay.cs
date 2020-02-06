@@ -39,5 +39,6 @@ namespace S3795574A2.Models
         public Period Period { get; set; }
         [Required]
         public DateTime ModifyDate { get; set; }
+        public bool IsLocked { get; set; } = false;
     }
 }

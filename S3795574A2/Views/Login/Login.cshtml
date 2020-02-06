@@ -22,8 +22,9 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-primary" />
-            </div>           
+            </div>
             @Html.ValidationMessage("UserLocked", new { @class = "text-danger" })
+            @Html.ValidationMessage("LockedByAdmin", new { @class = "text-danger" })
         </form>
     </div>
 </div>

@@ -1,0 +1,54 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Edit User";
+}
+<h3>User: @Model.Name</h3>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label class="control-label">Name:</label>
+                <input asp-for="Name" id="Name" value="@Model.Name" class="form-control" />
+                @Html.ValidationMessage("Name", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Address:</label>
+                <input asp-for="@Model.Address" id="Address" value="@Model.Address" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">City:</label>
+                <input asp-for="@Model.City" id="City" value="@Model.City" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">State:</label>
+                @Html.DropDownListFor(m => m.States, new SelectList(Enum.GetValues(typeof(States))), "Select State")
+            </div>
+            <div class="form-group">
+                <label class="control-label">Post Code:</label>
+                <input asp-for="@Model.PostCode" class="form-control" value="@Model.PostCode" />
+                @Html.ValidationMessage(nameof(Model.PostCode), new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phone:</label>
+                <input asp-for="@Model.Phone" class="form-control" value="@Model.Phone" />
+                @Html.ValidationMessage("Phone", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">TFN:</label>
+                <input asp-for="@Model.TFN" class="form-control" value="@Model.TFN" />
+                <span asp-validation-for="TFN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="@Model.CustomerID" />
+                <a asp-action="Delete" asp-route-id="@Model.CustomerID" class="btn btn-primary" style="background-color:red ;border-color:red">Delete User</a>
+                <input type="submit" value="Update Info" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to Dashboard</a>
+</div>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

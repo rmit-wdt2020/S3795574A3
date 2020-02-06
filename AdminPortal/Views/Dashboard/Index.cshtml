@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Customer>
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+    <h1>Dashboard</h1>
+    <form asp-controller="Dashboard" asp-action="Index">
+        <p>
+            Search by name: <input type="text" name="name">
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Manage" asp-route-id="@item.CustomerID" class="btn btn-primary">Manage</a>                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

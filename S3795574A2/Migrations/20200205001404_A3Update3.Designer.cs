@@ -10,8 +10,8 @@ using S3795574A2.Data;
 namespace S3795574A2.Migrations
 {
     [DbContext(typeof(NwbaContext))]
-    [Migration("20200127045604_IupdateStates")]
-    partial class IupdateStates
+    [Migration("20200205001404_A3Update3")]
+    partial class A3Update3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,9 @@ namespace S3795574A2.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2")
                         .HasMaxLength(8);
@@ -55,32 +58,28 @@ namespace S3795574A2.Migrations
                     b.Property<int>("BillPayID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasMaxLength(4)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccountNumber")
-                        .HasColumnType("int")
-                        .HasMaxLength(4);
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("money")
-                        .HasMaxLength(8);
+                        .HasColumnType("money");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2")
-                        .HasMaxLength(8);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PayeeID")
-                        .HasColumnType("int")
-                        .HasMaxLength(4);
+                        .HasColumnType("int");
 
                     b.Property<int>("Period")
-                        .HasColumnType("int")
-                        .HasMaxLength(1);
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ScheduleDate")
-                        .HasColumnType("datetime2")
-                        .HasMaxLength(8);
+                        .HasColumnType("datetime2");
 
                     b.HasKey("BillPayID");
 
@@ -121,8 +120,8 @@ namespace S3795574A2.Migrations
                         .HasMaxLength(10);
 
                     b.Property<string>("States")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasColumnType("nvarchar(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("TFN")
                         .HasColumnType("nvarchar(11)")
@@ -139,8 +138,14 @@ namespace S3795574A2.Migrations
                         .HasColumnType("nvarchar(8)")
                         .HasMaxLength(8);
 
+                    b.Property<int>("Attempt")
+                        .HasColumnType("int");
+
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("LockedToDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2")
@@ -193,8 +198,8 @@ namespace S3795574A2.Migrations
                         .HasMaxLength(10);
 
                     b.Property<string>("States")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasColumnType("nvarchar(3)")
+                        .HasMaxLength(3);
 
                     b.HasKey("PayeeID");
 

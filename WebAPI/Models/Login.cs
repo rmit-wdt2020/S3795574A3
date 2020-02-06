@@ -21,9 +21,10 @@ namespace WebAPI.Models
         [Required, StringLength(64)]
         public string PasswordHash { get; set; }
 
-        [Required,StringLength(8)]
+        [Required]
         public DateTime ModifyDate { get; set; }
         public int Attempt { get; set; }
         public DateTime LockedToDate { get; set; }
+        public bool IsLocked { get; set; }
     }
 }

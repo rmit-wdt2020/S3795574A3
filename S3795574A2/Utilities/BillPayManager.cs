@@ -23,6 +23,8 @@ namespace S3795574A2
             var billPays = _context.BillPays.ToList<BillPay>();
             foreach (var bill in billPays)
             {
+                if (bill.IsLocked)
+                    continue;
                 // Run Once and delete the billpay record
                 if (bill.Period.ToString().Equals("S") && bill.ScheduleDate < DateTime.UtcNow)
                 {

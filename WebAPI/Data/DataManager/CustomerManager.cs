@@ -22,12 +22,19 @@ namespace WebAPI.Data.DataManager
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            _context.Customers.Remove(_context.Customers.Find(id));
+            _context.SaveChanges();
+
+            return id;
         }
 
         public Customer Get(int id)
         {
             return _context.Customers.Find(id);
+        }
+        public IEnumerable<Customer> Post(string name)
+        {
+            return _context.Customers.Where(x=>x.Name.Contains(name));
         }
 
         public IEnumerable<Customer> GetAll()
