@@ -34,14 +34,16 @@ namespace S3795574A2
 
         public Task TaskRoutine()
         {
-            using var scope = scopeFactory.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<NwbaContext>();
-            var billPayManager = new BillPayManager(dbContext);
+           
+            
 
             while (true)
             {
                 //if(accessor.HttpContext.Session.GetInt32(nameof(Customer.CustomerID)) == null)
                 //    accessor.HttpContext.Response.Redirect("https://localhost:44380/Nwba/SecureLogin/LogoutNow");
+                using var scope = scopeFactory.CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<NwbaContext>();
+                var billPayManager = new BillPayManager(dbContext);
                 _ = billPayManager.Run();
                 //Run this loop every 5 second
                 DateTime nextStop = DateTime.Now.AddSeconds(5);

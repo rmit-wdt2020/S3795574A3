@@ -1,6 +1,14 @@
-﻿@model  List<ChartViewModel>
+﻿@using Newtonsoft.Json;
+@model List<ChartViewModel>
 @{
     ViewData["Title"] = "Chart";
+    var labels = new List<string>();
+    var data = new List<int>();
+    foreach (var c in Model)
+    {
+        labels.Add(c.Date);
+        data.Add(c.Count);
+    }
 }
 <div class="jumbotron">
     <h1>Transaction Chart</h1>
@@ -9,50 +17,148 @@
 <div class="container">
     <div class="btn-group" role="group">
         <a class="btn btn-primary" asp-controller="UserActivity" asp-action="Chart"
-           asp-route-id="@ViewBag.AccountNumber" asp-route-id2="3" role="button">Last 3 day</a>
-        <a class="btn btn-primary" asp-controller="UserActivity" asp-action="Chart"
            asp-route-id="@ViewBag.AccountNumber" asp-route-id2="7" role="button">Last 7 day</a>
         <a class="btn btn-primary" asp-controller="UserActivity" asp-action="Chart"
            asp-route-id="@ViewBag.AccountNumber" asp-route-id2="14" role="button">Last 14 day</a>
         <a class="btn btn-primary" asp-controller="UserActivity" asp-action="Chart"
+           asp-route-id="@ViewBag.AccountNumber" asp-route-id2="28" role="button">Last 28 day</a>
+        <a class="btn btn-primary" asp-controller="UserActivity" asp-action="Chart"
            asp-route-id="@ViewBag.AccountNumber" asp-route-id2="" role="button">ALL</a>
     </div>
 </div>
-<div>
-    <canvas id="myChart" width="400" height="400"></canvas>
-    <script>        
-        @{ 
-             var labels = new List<string>();
-             var data = new List<int>();
-             foreach(var c in Model)
-             {
-                 labels.Add(c.Date);
-                 data.Add(c.Count);
-             }
-         }
-        var canvas = document.getElementById("myChart");
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <canvas id="barChart" width="400" height="400"></canvas>
+            <script>
+        var canvas = document.getElementById("barChart");
+        var labels = @Html.Raw(JsonConvert.SerializeObject(labels));
+        var data = @Html.Raw(JsonConvert.SerializeObject(data));
         var myChart = new Chart(canvas, {
-        type: "bar",
-        data: {
-          labels: labels,
-          datasets: [{
-            label: "Transaction count",
-            data: data,
-            options: {
-              scales: {
-                xAxes: [{
-                  type: "time",
-                  time: {
-                    unit: "day"
-                  }
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Transaction count",
+                    data: data,
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                type: "time",
+                                time: {
+                                    unit: "day"
+                                }
+                            }]
+                        }
+                    },
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderWidth: 1
                 }]
-              }
             },
-            backgroundColor: "rgba(255, 99, 132, 0.2)",
-            borderColor: "rgba(255, 99, 132, 1)",
-            borderWidth: 1
-          }]
-        }
-      });
-    </script>
+            options: {
+                scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                },
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+            </script>
+            <span class="badge badge-secondary">Bar Chart</span>
+        </div>
+        <div class="col-sm">
+            <canvas id="lineChart" width="400" height="400"></canvas>
+            <script>
+        var canvas = document.getElementById("lineChart");
+        var labels = @Html.Raw(JsonConvert.SerializeObject(labels));
+        var data = @Html.Raw(JsonConvert.SerializeObject(data));
+        var myChart = new Chart(canvas, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Transaction count",
+                    data: data,
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                type: "time",
+                                time: {
+                                    unit: "day"
+                                }
+                            }]
+                        }
+                    },
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                 scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                },
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+            </script>
+            <span class="badge badge-secondary">Line Chart</span>
+        </div>
+        <div class="col-sm">
+            <canvas id="radarChart" width="400" height="400"></canvas>
+            <script>
+        var canvas = document.getElementById("radarChart");
+        var labels = @Html.Raw(JsonConvert.SerializeObject(labels));
+        var data = @Html.Raw(JsonConvert.SerializeObject(data));
+        var myChart = new Chart(canvas, {
+            type: "radar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Transaction count",
+                    data: data,
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                type: "time",
+                                time: {
+                                    unit: "day"
+                                }
+                            }]
+                        }
+                    },
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                 scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                },
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+            </script>
+            <span class="badge badge-secondary ">radar Chart</span>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-controller="Dashboard" asp-action="Index">Back to Dashboard</a>
 </div>

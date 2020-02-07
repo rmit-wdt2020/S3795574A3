@@ -9,7 +9,8 @@
     </p>
 </div>
 <div class="container">
-    <form asp-controller="BlockBillpay" asp-action="BlockBillpay">
+    <form asp-controller="BlockBillpay" asp-action="BlockBillpay" 
+          asp-route-id="@Model.AccountNumber" asp-route-id2="@Model.BillPayID">
         <table class="table">
             <thead>
                 <tr>

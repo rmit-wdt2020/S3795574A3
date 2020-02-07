@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace AdminPortal.Controllers
 {
     [AuthorizeAdmin]
-    //[Route("/SecureBlockBillpay/{Action}")]
+    [Route("/SecureBlockBillpay/{Action}")]
     public class BlockBillpayController: Controller
     {
         public async Task<IActionResult> GetAccounts(int? id)

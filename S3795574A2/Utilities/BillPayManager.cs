@@ -21,6 +21,7 @@ namespace S3795574A2
         public async Task Run()
         {
             var billPays = _context.BillPays.ToList<BillPay>();
+            // billPays = from b in _context.BillPays select(b);
             foreach (var bill in billPays)
             {
                 if (bill.IsLocked)

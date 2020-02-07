@@ -2,8 +2,10 @@
 @{
     ViewData["Title"] = "Dashboard";
 }
-
-    <h1>Dashboard</h1>
+    <div class="jumbotron">
+        <h1>Dashboard</h1>
+        <p>Select a user to do furture operation</p>
+    </div>
     <form asp-controller="Dashboard" asp-action="Index">
         <p>
             Search by name: <input type="text" name="name">

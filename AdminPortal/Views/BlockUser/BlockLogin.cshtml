@@ -1,4 +1,7 @@
 ﻿@model Login
+@{
+    ViewData["Title"] = "Block Login";
+}
 <div class="jumbotron">
     <h1>Block User Login</h1>
     <p>Click the button below to lock the user</p>
@@ -8,35 +11,35 @@
         <Strong>NOTE</Strong>: This operation will prevent user login their account.
     </p>
 </div>
-    <div class="container">
-        <form asp-controller= "BlockUser" asp-action="BlockLogin" asp-route-id="@Model.CustomerID">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>User Name</th>
-                        <th>Block Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@Html.DisplayFor(x => Model.UserID)</td>
-                        <td>@Html.DisplayFor(x => Model.CustomerID)</td>
-                        <td>@Html.DisplayFor(x => Model.IsLocked)</td>
-                        <td>
-                            <input type="hidden" asp-for="@Model.CustomerID" value="@Model.CustomerID" />
-                            <input type="hidden" asp-for="@Model.UserID" value="@Model.UserID" />
-                            <input type="hidden" asp-for="@Model.PasswordHash" value="@Model.PasswordHash" />
-                            <input type="hidden" asp-for="@Model.ModifyDate" value="@Model.ModifyDate" />
-                            <input type="hidden" asp-for="@Model.LockedToDate" value="@Model.LockedToDate" />
-                            <input type="submit" value="Change Status" class="btn btn-primary" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-    </div>
-    <div>
-        <a asp-controller= "Dashboard" asp-action="Index">Back to Dashboard</a>
-    </div>
+<div class="container">
+    <form asp-controller="BlockUser" asp-action="BlockLogin" asp-route-id="@Model.CustomerID">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>Block Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(x => Model.UserID)</td>
+                    <td>@Html.DisplayFor(x => Model.CustomerID)</td>
+                    <td>@Html.DisplayFor(x => Model.IsLocked)</td>
+                    <td>
+                        <input type="hidden" asp-for="@Model.CustomerID" value="@Model.CustomerID" />
+                        <input type="hidden" asp-for="@Model.UserID" value="@Model.UserID" />
+                        <input type="hidden" asp-for="@Model.PasswordHash" value="@Model.PasswordHash" />
+                        <input type="hidden" asp-for="@Model.ModifyDate" value="@Model.ModifyDate" />
+                        <input type="hidden" asp-for="@Model.LockedToDate" value="@Model.LockedToDate" />
+                        <input type="submit" value="Change Status" class="btn btn-primary" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div>
+    <a asp-controller="Dashboard" asp-action="Index">Back to Dashboard</a>
+</div>

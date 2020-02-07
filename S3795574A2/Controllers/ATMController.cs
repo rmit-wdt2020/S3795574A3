@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AdminPortal.Attributes;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,18 +11,19 @@ using System.Threading.Tasks;
 
 namespace S3795574A2.Controllers
 {
+    [AuthorizeCustomer]
     public class ATMController: Controller
     {
         private readonly NwbaContext _context;
         private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
 
         public ATMController(NwbaContext context) => _context = context;
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
-                filterContext.Result = new RedirectResult("/Nwba/SecureLogin");
+        //public override void OnActionExecuting(ActionExecutingContext filterContext)
+        //{
+        //    if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
+        //        filterContext.Result = new RedirectResult("/Nwba/SecureLogin");
 
-        }
+        //}
         public async Task<IActionResult> Index()
         {
             ////Redirect to login page

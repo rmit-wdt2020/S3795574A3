@@ -37,6 +37,7 @@ namespace S3795574A2
             {
                 // Make the session cookie essential.
                 options.Cookie.IsEssential = true;
+                //session expire time
                 options.IdleTimeout = TimeSpan.FromSeconds(60);
             });
 
@@ -47,19 +48,12 @@ namespace S3795574A2
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // Customised error page 
-                app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                // No idea what it is, just copy it from tute example
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.UseExceptionHandler("/Error/{0}");
+            // Customised error page 
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            // No idea what it is, just copy it from tute example
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();

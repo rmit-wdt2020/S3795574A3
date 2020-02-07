@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AdminPortal.Attributes;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
@@ -12,6 +13,7 @@ using X.PagedList;
 
 namespace S3795574A2.Controllers
 {
+    [AuthorizeCustomer]
     public class StatementController: Controller
     {
         private const string AccountSessionKey = "_AccountSessionKey";
@@ -19,17 +21,14 @@ namespace S3795574A2.Controllers
         private readonly NwbaContext _context;
         private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
         public StatementController(NwbaContext context) => _context = context;
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
-                filterContext.Result = new RedirectResult("/Nwba/SecureLogin");
+        //public override void OnActionExecuting(ActionExecutingContext filterContext)
+        //{
+        //    if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
+        //        filterContext.Result = new RedirectResult("/Nwba/SecureLogin");
 
-        }
+        //}
         public async Task<IActionResult> Index()
         {
-            //Redirect to login page
-            //if (!HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
-            //    return Redirect("/Nwba/SecureLogin");
             var customer = await _context.Customers.FindAsync(CustomerID);
 
             return View(customer);

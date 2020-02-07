@@ -55,10 +55,10 @@ namespace S3795574A2.Controllers
                 login.Attempt += 1;
                 login.ModifyDate = DateTime.UtcNow;
                 ModelState.AddModelError("Attempt", "Login Failed. Attpempt left: " + (3 - login.Attempt));
+                //if user attempt 3 times in 15 mins, lock the user for 1min
                 if (login.Attempt >= 3 && login.ModifyDate.AddMinutes(15) > DateTime.UtcNow)
                 {                   
                     login.Attempt = 0;
-                    //login.IsLocked = true;
                     login.LockedToDate = DateTime.UtcNow.AddMinutes(1);
                 }
                 

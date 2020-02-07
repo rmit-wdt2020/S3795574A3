@@ -20,7 +20,7 @@ namespace AdminPortal.Controllers
                     ViewBag.ErrorMessage = "Sorry, something wrong with our server.";
                     break;
                 default:
-                    ViewBag.ErrorMessage = "Unknown error.";
+                    ViewBag.ErrorMessage = "Sorry, something wrong with our server.";
                     break;
             }
 

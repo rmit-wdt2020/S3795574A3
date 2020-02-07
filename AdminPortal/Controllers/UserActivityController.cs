@@ -15,7 +15,7 @@ using X.PagedList;
 namespace AdminPortal.Controllers
 {
     [AuthorizeAdmin]
-    //[Route("/SecureUserActivity/{Action}")]
+    [Route("/SecureUserActivity/{Action}")]
     public class UserActivityController: Controller
     {
 
@@ -38,7 +38,7 @@ namespace AdminPortal.Controllers
         {
             HttpResponseMessage response;
             const int pageSize = 6;
-            if (String.IsNullOrEmpty(id2.ToString()))
+            if (!id2.HasValue)
                 response = await NwbaAPI.InitializeClient().GetAsync($"api/transaction/{id}");
             else
                 response = await NwbaAPI.InitializeClient().GetAsync($"api/transaction/{id}/{id2}");
@@ -62,8 +62,9 @@ namespace AdminPortal.Controllers
                 throw new Exception();
             var result = response.Content.ReadAsStringAsync().Result;
             var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
+            var SortedList = transactions.OrderBy(o => o.ModifyDate).ToList();
             List<string> date = new List<string>();
-            foreach(var t in transactions)
+            foreach(var t in SortedList)
             {
                 date.Add(t.ModifyDate.ToString("dd/MM/yyyy"));
             }
