@@ -2,39 +2,43 @@
 @{
     ViewData["Title"] = "Edit User";
 }
-<h3>User: @Model.Name</h3>
+
+<div class="jumbotron" style="background-image:url('/img/blue.jpg')" >
+    <h1>Update User Info</h1>
+    <strong>Name: </strong><p>@Model.Name</p>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-controller= "UserDetail" asp-action="Edit" asp-route-id="@Model.CustomerID">
             <div class="form-group">
-                <label class="control-label">Name:</label>
+                <label class="control-label"><strong>Name:</strong></label>
                 <input asp-for="Name" id="Name" value="@Model.Name" class="form-control" />
                 @Html.ValidationMessage("Name", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label class="control-label">Address:</label>
+                <label class="control-label"><strong>Address:</strong></label>
                 <input asp-for="@Model.Address" id="Address" value="@Model.Address" class="form-control" />
             </div>
             <div class="form-group">
-                <label class="control-label">City:</label>
+                <label class="control-label"><strong>City:</strong></label>
                 <input asp-for="@Model.City" id="City" value="@Model.City" class="form-control" />
             </div>
             <div class="form-group">
-                <label class="control-label">State:</label>
+                <label class="control-label"><strong>State:</strong></label>
                 @Html.DropDownListFor(m => m.States, new SelectList(Enum.GetValues(typeof(States))), "Select State")
             </div>
             <div class="form-group">
-                <label class="control-label">Post Code:</label>
+                <label class="control-label"><strong>Post Code:</strong></label>
                 <input asp-for="@Model.PostCode" class="form-control" value="@Model.PostCode" />
                 @Html.ValidationMessage(nameof(Model.PostCode), new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label class="control-label">Phone:</label>
+                <label class="control-label"><strong>Phone:</strong></label>
                 <input asp-for="@Model.Phone" class="form-control" value="@Model.Phone" />
                 @Html.ValidationMessage("Phone", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label class="control-label">TFN:</label>
+                <label class="control-label"><strong>TFN:</strong></label>
                 <input asp-for="@Model.TFN" class="form-control" value="@Model.TFN" />
                 <span asp-validation-for="TFN" class="text-danger"></span>
             </div>

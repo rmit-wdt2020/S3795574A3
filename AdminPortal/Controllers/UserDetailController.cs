@@ -64,20 +64,20 @@ namespace AdminPortal.Controllers
 
             return View(customer);
         }
-        /*Comment this code during the development, in case I delete user accidently.
+        /*Comment this code during the development, in case someone delete the user accidently.
          *Uncomment this code, then the delete function will work.
          */
-        //[HttpPost]
-        //[ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult DeleteConfirmed(int id)
-        //{
-        //    var response = NwbaAPI.InitializeClient().DeleteAsync($"api/customer/{id}").Result;
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var response = NwbaAPI.InitializeClient().DeleteAsync($"api/customer/{id}").Result;
 
-        //    if (response.IsSuccessStatusCode)
-        //        return RedirectToAction("Index", "Dashboard");
+            if (response.IsSuccessStatusCode)
+                return RedirectToAction("Index", "Dashboard");
 
-        //    return NotFound();
-        //}
+            return NotFound();
+        }
     }
 }

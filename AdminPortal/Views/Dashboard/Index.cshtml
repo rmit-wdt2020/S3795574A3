@@ -2,42 +2,35 @@
 @{
     ViewData["Title"] = "Dashboard";
 }
-    <div class="jumbotron">
-        <h1>Dashboard</h1>
-        <p>Select a user to do furture operation</p>
-    </div>
-    <form asp-controller="Dashboard" asp-action="Index">
-        <p>
-            Search by name: <input type="text" name="name">
-            <input type="submit" value="Filter" />
-        </p>
-    </form>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CustomerID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CustomerID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        <a asp-action="Manage" asp-route-id="@item.CustomerID" class="btn btn-primary">Manage</a>                        
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="jumbotron text-center" style="background-image:url('/img/blue.jpg')" >
+    <h1>Dashboard</h1>
+    <p>Manage every user in the database</p>
+</div>
+
+<div class="row">
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        if (i > 0 && i % 3 == 0)
+        {
+        @:</div><div class="row">
+            // close and start new row
+        }
+        <div class="col-md-4">
+            <h4>
+                @Model.ElementAt(i).Name
+            </h4>
+            <small>
+                <strong>Customer ID: </strong>@Model.ElementAt(i).CustomerID
+            </small>
+            <p>
+                <strong>Address: </strong>@Model.ElementAt(i).Address
+                <br />
+                <strong>City: </strong>@Model.ElementAt(i).City
+                <br />
+                <strong>Phone: </strong>@Model.ElementAt(i).Phone
+            </p>
+            <!-- Split button -->
+            <a asp-action="Manage" asp-route-id="@Model.ElementAt(i).CustomerID" class="btn btn-outline-primary float-right" ><img src="~/img/manage.png" width="30" height="30"/>Manage</a>
+        </div>
+    }
+</div>

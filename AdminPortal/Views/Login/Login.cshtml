@@ -2,29 +2,31 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="jumbotron">
-    <h1>Login</h1>
-    <p>This is Admin Protal</p>
-    <img src="/Image/admin-icon.jpg" alt="admin" />
-</div>
+    <div class="jumbotron" style="background-image:url('/img/blue.jpg')">
+        <h1><img src="~/img/admin-icon.jpg" alt="admin" height="42" width="42" />Admin Login</h1> 
+        <p>This is Admin Protal</p>
+    </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login">
-            <div class="form-group">
-                <label for="LoginID" class="control-label">LoginID:</label>
-                <input id="LoginID" name="LoginID" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="Password" class="control-label">Password:</label>
-                <input id="Password" name="Password" type="password" class="form-control"
-                       data-val="true" data-val-required="The Password field is required." />
-                @Html.ValidationMessage("Password", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
-            </div>
-            @Html.ValidationMessage("LoginFailed", new { @class = "text-danger" })
-        </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Login">
+                <div class="form-group">
+                    <label for="LoginID" class="control-label">LoginID:</label>
+                    <input id="LoginID" name="LoginID" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="Password" class="control-label">Password:</label>
+                    <input id="Password" name="Password" type="password" class="form-control"
+                           data-val="true" data-val-required="The Password field is required." />
+                    @Html.ValidationMessage("Password", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </div>
+                @Html.ValidationMessage("LoginFailed", new { @class = "text-danger" })
+            </form>
+        </div>
     </div>
 </div>
+

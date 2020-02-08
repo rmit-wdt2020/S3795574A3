@@ -41,7 +41,6 @@ namespace WebAPI.Data.DataManager
         {
             return _context.Customers.ToList();
         }
-
         public int Update(int id, Customer customer)
         {
             _context.Update(customer);

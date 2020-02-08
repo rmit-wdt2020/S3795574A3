@@ -2,33 +2,41 @@
 @{
     ViewData["Title"] = "Manage";
 }
-    <div class="jumbotron">
+    <div class="jumbotron" style="background-image:url('/img/blue.jpg')" >
         <h1>User Manage Page</h1>
-        <P>User Name:@Model.Name</P>
-        <P>User ID:@Model.CustomerID</P>
+        <div class="row">
+            <strong>User Name: </strong> <P>User Name:@Model.Name</P>
+        </div>
+        <div class="row">
+            <strong>User ID: </strong> <P>@Model.CustomerID</P>
+        </div>       
     </div>
 <div class="container">
     <div class="row">
         <div class="col">
             <h3>Edit User Detail</h3>
             <p>Edit user detail or delete all user details</p>
-            <a asp-controller="UserDetail" asp-action="Edit" asp-route-id="@Model.CustomerID" class="btn btn-primary">Edit</a>
+            <a asp-controller="UserDetail" asp-action="Edit" asp-route-id="@Model.CustomerID" class="btn btn-outline-primary">
+            <img src="~/img/edit.png" width="30" height="30" />Edit</a>
         </div>
         <div class="col">
             <h3>Block User Login</h3>
             <p>This feature can lock user login fuction</p>
-            <a asp-controller= "BlockUser" asp-action="BlockLogin" asp-route-id="@Model.CustomerID" class="btn btn-primary">Block</a>
+            <a asp-controller= "BlockUser" asp-action="BlockLogin" asp-route-id="@Model.CustomerID" class="btn btn-outline-primary">
+            <img src="~/img/blockuser.png" width="30" height="30" />Block User</a>
         </div>
         <div class="w-100"></div>
         <div class="col">
             <h3>Block User's Billpay</h3>
             <p>This feature can lock scheduled billpay</p>
-            <a asp-controller= "BlockBillpay" asp-action="GetAccounts" asp-route-id="@Model.CustomerID" class="btn btn-primary">Block</a>
+            <a asp-controller= "BlockBillpay" asp-action="GetAccounts" asp-route-id="@Model.CustomerID" class="btn btn-outline-primary">
+            <img src="~/img/bill.png" width="30" height="30" />Block Billpay</a>
         </div>
         <div class="col">
             <h3>Check User's Activity</h3>
             <p>See the user activity in graphic or table</p>
-            <a asp-controller= "UserActivity" asp-action="Activity" asp-route-id="@Model.CustomerID" class="btn btn-primary">Activity</a>
+            <a asp-controller= "UserActivity" asp-action="Activity" asp-route-id="@Model.CustomerID" class="btn btn-outline-primary">
+            <img src="~/img/Activity.png" width="30" height="30" />Activity</a>
         </div>
     </div>
 </div>
