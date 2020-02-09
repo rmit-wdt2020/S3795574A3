@@ -30,7 +30,8 @@
                 <strong>Phone: </strong>@Model.ElementAt(i).Phone
             </p>
             <!-- Split button -->
-            <a asp-action="Manage" asp-route-id="@Model.ElementAt(i).CustomerID" class="btn btn-outline-primary float-right" ><img src="~/img/manage.png" width="30" height="30"/>Manage</a>
+            <a asp-action="Manage" asp-route-id="@Model.ElementAt(i).CustomerID" class="btn btn-outline-primary float-right" >
+            <img src="~/img/manage.png" width="30" height="30"/>Manage</a>
         </div>
     }
 </div>

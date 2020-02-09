@@ -36,9 +36,9 @@
                     </td>
                     <td>
                         <a asp-controller="UserActivity" asp-action="TransactionHistory" asp-route-id="@item.AccountNumber"
-                           class="btn btn-primary">Show Records</a>
+                           class="btn btn-outline-primary"><img src="~/img/transaction.png" width="30" height="30" />Show Records</a>
                         <a asp-controller="UserActivity" asp-action="Chart" asp-route-id="@item.AccountNumber"
-                           class="btn btn-primary">Show Graph</a>
+                           class="btn btn-outline-primary"><img src="~/img/chart.png" width="30" height="30" />Show Graph</a>
                     </td>
                 </tr>
             }

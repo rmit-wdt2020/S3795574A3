@@ -2,13 +2,16 @@
     ViewBag.Title = "Not Found";
 }
 
-<div class="jumbotron">
+<div class="jumbotron" style="background-image:url('/img/blue.jpg')">
     <h1>Oops, an error occurred</h1>
     <p>See the info below for more information</p>
 </div>
 <div class="container">
     <p class="text-danger">
         <Strong>NOTE</Strong>: @ViewBag.ErrorMessage</p>
+</div>
+<div class="container">
+    <img src="~/img/error.jpg" height="500" width="800" />
 </div>
 <div>
     <a asp-action="index" asp-controller="home">
